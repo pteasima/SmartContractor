@@ -1,0 +1,16 @@
+PODS:
+  - Unidirectional (0.1.0)
+
+DEPENDENCIES:
+  - Unidirectional
+
+SPEC REPOS:
+  https://github.com/pteasima/podspecs:
+    - Unidirectional
+
+SPEC CHECKSUMS:
+  Unidirectional: 895bf55790538f5d305251265857adefbc2817c1
+
+PODFILE CHECKSUM: f7e88c6456c400a29cc302f10550f3b7bd709a60
+
+COCOAPODS: 1.5.3
