@@ -4,6 +4,12 @@ options:
   deploymentTarget:
     ios: "12.0"
 targets:
+  SmartContractorIos:
+    type: application
+    platform: iOS
+    sources: [SmartContractorIos]
+    dependencies:
+      - target: SmartContractorFramework
   SmartContractorFramework:
    type: framework
    platform: iOS

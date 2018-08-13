@@ -10,3 +10,4 @@ import Unidirectional
 
 enum Action { }
 let x = RunEffect<Action> { _ in print("hello") }
+
