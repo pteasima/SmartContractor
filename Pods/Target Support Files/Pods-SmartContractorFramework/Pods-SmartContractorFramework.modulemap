@@ -1,6 +1,0 @@
-framework module Pods_SmartContractorFramework {
-  umbrella header "Pods-SmartContractorFramework-umbrella.h"
-
-  export *
-  module * { export * }
-}
