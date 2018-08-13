@@ -10,7 +10,18 @@ targets:
     sources: [SmartContractorIos]
     dependencies:
       - target: SmartContractorFramework
+    scheme:
+      testTargets:
+        - SmartContractorFrameworkTests
   SmartContractorFramework:
-   type: framework
-   platform: iOS
-   sources: [SmartContractorFramework]
+    type: framework
+    platform: iOS
+    sources: [SmartContractorFramework]
+    scheme:
+      testTargets:
+        - SmartContractorFrameworkTests
+  SmartContractorFrameworkTests:
+    type: bundle.unit-test
+    sources: [SmartContractorFrameworkTests]
+    platform: iOS
+    
