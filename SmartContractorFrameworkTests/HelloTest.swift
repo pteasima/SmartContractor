@@ -19,7 +19,7 @@ class HelloTest: XCTestCase {
     }
 
     func testExample() {
-      print(SmartCoxntractorFramework.x)
+      print(SmartContractorFramework.x)
       print(SmartContractorFramework.somethingElse)
     }
 

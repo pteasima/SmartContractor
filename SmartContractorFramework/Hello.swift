@@ -8,7 +8,7 @@
 import Foundation
 import Unidirectional
 
-enum Action { }
-let x = RunEffect<Action> { _ in print("hello") }
+public enum Action { }
+public let x = RunEffect<Action> { _ in print("hello") }
 
-let somethingElse = "just a string"
+public let somethingElse = "just a string"
