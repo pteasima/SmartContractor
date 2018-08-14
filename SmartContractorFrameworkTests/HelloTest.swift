@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import SmartContractorFramework
 
 class HelloTest: XCTestCase {
 
@@ -18,7 +19,8 @@ class HelloTest: XCTestCase {
     }
 
     func testExample() {
-      
+      print(SmartCoxntractorFramework.x)
+      print(SmartContractorFramework.somethingElse)
     }
 
 }
