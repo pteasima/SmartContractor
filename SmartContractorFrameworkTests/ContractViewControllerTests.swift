@@ -19,7 +19,7 @@ class ContractViewControllerTests: XCTestCase {
     }
 
     func testExample() {
-      ContractViewController.instantiate()
+      R.storyboard.contract().instantiateInitialViewController()
     }
 
 }
