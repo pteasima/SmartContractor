@@ -2,24 +2,28 @@ PODS:
   - R.swift (4.0.0):
     - R.swift.Library (~> 4.0.0)
   - R.swift.Library (4.0.0)
+  - Then (2.3.0)
   - Unidirectional (0.1.0)
 
 DEPENDENCIES:
   - R.swift
+  - Then
   - Unidirectional
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - R.swift
     - R.swift.Library
+    - Then
   https://github.com/pteasima/podspecs:
     - Unidirectional
 
 SPEC CHECKSUMS:
   R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
   R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
+  Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
   Unidirectional: 895bf55790538f5d305251265857adefbc2817c1
 
-PODFILE CHECKSUM: feb8ff668e165c405becfb18d42b33086f358974
+PODFILE CHECKSUM: b5cc6d5ad93af916c0e420029627795233c4d515
 
 COCOAPODS: 1.5.3

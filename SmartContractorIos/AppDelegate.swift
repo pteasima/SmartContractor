@@ -7,6 +7,7 @@
 
 import UIKit
 import SmartContractorFramework
+import Then
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,9 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
 
-    ContractViewController.instantiate()
-//    print(SmartContractorFramework.x)
-//    print(SmartContractorFramework.somethingElse)
+    window = UIWindow(frame: UIScreen.main.bounds).then {
+      $0.rootViewController = R.storyboard.contract().instantiateInitialViewController()
+      $0.makeKeyAndVisible()
+    }
     return true
   }
 

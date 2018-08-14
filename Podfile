@@ -7,6 +7,7 @@ pod 'R.swift'
 
 def framework_pods
   pod 'Unidirectional'
+  pod 'Then'
 end
 
 target 'SmartContractorIos' do
