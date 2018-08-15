@@ -1,14 +1,14 @@
 //
-//  HelloTest.swift
+//  SmartContractorFrameworkTests.swift
 //  SmartContractorFrameworkTests
 //
-//  Created by Petr Šíma on 14/08/2018.
+//  Created by Petr Šíma on 15/08/2018.
 //
 
 import XCTest
 @testable import SmartContractorFramework
 
-class ContractViewControllerTests: XCTestCase {
+class ContractFrameworkTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -19,7 +19,7 @@ class ContractViewControllerTests: XCTestCase {
     }
 
     func testExample() {
-     
+      R.storyboard.contract().instantiateInitialViewController() as! ContractViewController
     }
 
 }
