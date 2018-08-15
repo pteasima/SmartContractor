@@ -8,6 +8,7 @@
 import UIKit
 import SmartContractorFramework
 import Then
+import Closures
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,9 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Override point for customization after application launch.
 
     window = UIWindow(frame: UIScreen.main.bounds).then {
-      let vc = R.storyboard.contract().instantiateInitialViewController() as! ContractViewController
+      let vc = R.storyboard.contracts.instantiateInitialViewController()!.then {
+        $0.configure(for: HomeScreen())
+      }
       $0.rootViewController = vc
-      
+//      vc.tableView.addElements([], cell:)
       $0.makeKeyAndVisible()
     }
     return true

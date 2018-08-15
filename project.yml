@@ -16,6 +16,9 @@ targets:
   SmartContractorFramework:
     type: framework
     platform: iOS
+    prebuildScripts:
+      - path: scripts/R.sh
+        name: R
     sources: [SmartContractorFramework]
     scheme:
       testTargets:

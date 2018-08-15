@@ -8,6 +8,7 @@ pod 'R.swift'
 def framework_pods
   pod 'Unidirectional'
   pod 'Then'
+  pod 'Closures'
 end
 
 target 'SmartContractorIos' do

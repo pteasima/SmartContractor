@@ -41,8 +41,11 @@ public struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 0 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
   public struct reuseIdentifier {
+    /// Reuse identifier `ContractCell`.
+    public static let contractCell: Rswift.ReuseIdentifier<UIKit.UITableViewCell> = Rswift.ReuseIdentifier(identifier: "ContractCell")
+    
     fileprivate init() {}
   }
   
@@ -53,12 +56,12 @@ public struct R: Rswift.Validatable {
   
   /// This `R.storyboard` struct is generated, and contains static references to 1 storyboards.
   public struct storyboard {
-    /// Storyboard `Contract`.
-    public static let contract = _R.storyboard.contract()
+    /// Storyboard `Contracts`.
+    public static let contracts = _R.storyboard.contracts()
     
-    /// `UIStoryboard(name: "Contract", bundle: ...)`
-    public static func contract(_: Void = ()) -> UIKit.UIStoryboard {
-      return UIKit.UIStoryboard(resource: R.storyboard.contract)
+    /// `UIStoryboard(name: "Contracts", bundle: ...)`
+    public static func contracts(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.contracts)
     }
     
     fileprivate init() {}
@@ -88,9 +91,11 @@ public struct _R {
   }
   
   public struct storyboard {
-    public struct contract: Rswift.StoryboardResourceType {
+    public struct contracts: Rswift.StoryboardResourceWithInitialControllerType {
+      public typealias InitialController = ContractsViewController
+      
       public let bundle = R.hostingBundle
-      public let name = "Contract"
+      public let name = "Contracts"
       
       fileprivate init() {}
     }

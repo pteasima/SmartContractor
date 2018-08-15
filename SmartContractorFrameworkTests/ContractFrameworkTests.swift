@@ -20,7 +20,7 @@ class ContractFrameworkTests: XCTestCase {
 
     func testExample() {
       self.measure {
-        R.storyboard.contract().instantiateInitialViewController() as! ContractViewController
+        R.storyboard.contract().instantiateInitialViewController() as! ContractsViewController
       }
     }
 
