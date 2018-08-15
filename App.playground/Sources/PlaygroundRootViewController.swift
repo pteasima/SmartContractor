@@ -1,4 +1,5 @@
 import UIKit
+import Then
 
 public extension CGSize {
   static var iphoneX: CGSize { return CGSize(width: 375, height: 812) }
@@ -17,14 +18,9 @@ public final class PlaygroundRootViewController: UIViewController {
     super.viewDidLoad()
     view.frame = CGRect(origin: .zero, size: size)
     addChild(viewController)
-    view.addSubview(viewController.view)
-    viewController.view.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-      viewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      viewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      viewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-      viewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-      ])
+    view.addSubview(viewController.view.then {
+      $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    })
     viewController.didMove(toParent: self)
   }
 }
