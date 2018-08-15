@@ -8,6 +8,8 @@
 import UIKit
 import Unidirectional
 import Closures
+import Fakery
+
 public struct HomeScreen { public init() { } }
 public struct FavoriteContractsScreen {
   var userID: String
@@ -31,6 +33,7 @@ public class ContractsViewController: BaseTableViewController {
   public func configure(for screen: HomeScreen) {
     didUpdateState { [unowned self] newState in
       print("home")
+      self.selectedContract = newState.selectedContract
       self.contracts = newState.contracts
     }
     tableView.numberOfRows { [unowned self] _ in
@@ -40,9 +43,6 @@ public class ContractsViewController: BaseTableViewController {
       print("cellForRow")
       let cell = self.tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.contractCell, for: indexPath)!
       cell.textLabel?.text = self.contracts[indexPath.row]
-      if indexPath == self.tableView.indexPathForSelectedRow {
-        cell.isSelected = true
-      }
       return cell
     }
 
@@ -68,7 +68,8 @@ public class ContractsViewController: BaseTableViewController {
     super.viewDidLoad()
 
     Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { date in
-      dispatch(.add(contract: String(describing: date)))
+//      dispatch(.add(contract: String(describing: date)))
+      dispatch(.didSelect(contractAt: 0))
     }
 
   }
@@ -80,5 +81,18 @@ public class ContractsViewController: BaseTableViewController {
         tableView.reloadData()
       }
     }
+  }
+  var selectedContract: Contract? {
+    didSet {
+      if oldValue != selectedContract {
+        print("go")
+        performSegue(withIdentifier: R.segue.contractsViewController.homeToContracts, sender: self)
+      }
+    }
+  }
+
+  public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//    segue.destination.view.backgroundColor =
+    print(Faker(locale: "en-US").name.name())
   }
 }

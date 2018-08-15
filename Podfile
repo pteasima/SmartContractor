@@ -6,6 +6,7 @@ platform :ios, '12.0'
 pod 'R.swift'
 
 def framework_pods
+  pod 'Fakery'
   pod 'Unidirectional'
   pod 'Then'
   pod 'Closures'
