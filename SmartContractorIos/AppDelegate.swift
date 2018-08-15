@@ -19,7 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Override point for customization after application launch.
 
     window = UIWindow(frame: UIScreen.main.bounds).then {
-      $0.rootViewController = R.storyboard.contract().instantiateInitialViewController() as! ContractViewController
+      let vc = R.storyboard.contract().instantiateInitialViewController() as! ContractViewController
+      $0.rootViewController = vc
+      
       $0.makeKeyAndVisible()
     }
     return true

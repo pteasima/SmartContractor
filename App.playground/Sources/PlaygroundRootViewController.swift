@@ -12,6 +12,7 @@ public final class PlaygroundRootViewController: UIViewController {
     self.viewController = viewController
     self.size = size
     super.init(nibName: nil, bundle: nil)
+    preferredContentSize = size
   }
   required init(coder aDecoder: NSCoder) { fatalError() }
   public override func viewDidLoad() {
