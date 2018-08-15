@@ -49,8 +49,23 @@ public struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.segue` struct is generated, and contains static references to 0 view controllers.
+  /// This `R.segue` struct is generated, and contains static references to 1 view controllers.
   public struct segue {
+    /// This struct is generated for `ContractsViewController`, and contains static references to 1 segues.
+    public struct contractsViewController {
+      /// Segue identifier `HomeToContracts`.
+      public static let homeToContracts: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, ContractsViewController, UIKit.UITableViewController> = Rswift.StoryboardSegueIdentifier(identifier: "HomeToContracts")
+      
+      /// Optionally returns a typed version of segue `HomeToContracts`.
+      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
+      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
+      public static func homeToContracts(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, ContractsViewController, UIKit.UITableViewController>? {
+        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.contractsViewController.homeToContracts, segue: segue)
+      }
+      
+      fileprivate init() {}
+    }
+    
     fileprivate init() {}
   }
   
@@ -74,7 +89,7 @@ public struct R: Rswift.Validatable {
   
   fileprivate struct intern: Rswift.Validatable {
     fileprivate static func validate() throws {
-      // There are no resources to validate
+      try _R.validate()
     }
     
     fileprivate init() {}
@@ -85,17 +100,40 @@ public struct R: Rswift.Validatable {
   fileprivate init() {}
 }
 
-public struct _R {
+public struct _R: Rswift.Validatable {
+  public static func validate() throws {
+    try storyboard.validate()
+  }
+  
   public struct nib {
     fileprivate init() {}
   }
   
-  public struct storyboard {
-    public struct contracts: Rswift.StoryboardResourceWithInitialControllerType {
+  public struct storyboard: Rswift.Validatable {
+    public static func validate() throws {
+      try contracts.validate()
+    }
+    
+    public struct contracts: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       public typealias InitialController = ContractsViewController
       
       public let bundle = R.hostingBundle
+      public let contractsViewController = StoryboardViewControllerResource<ContractsViewController>(identifier: "ContractsViewController")
+      public let druhej = StoryboardViewControllerResource<UIKit.UITableViewController>(identifier: "Druhej")
       public let name = "Contracts"
+      
+      public func contractsViewController(_: Void = ()) -> ContractsViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: contractsViewController)
+      }
+      
+      public func druhej(_: Void = ()) -> UIKit.UITableViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: druhej)
+      }
+      
+      public static func validate() throws {
+        if _R.storyboard.contracts().druhej() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'druhej' could not be loaded from storyboard 'Contracts' as 'UIKit.UITableViewController'.") }
+        if _R.storyboard.contracts().contractsViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'contractsViewController' could not be loaded from storyboard 'Contracts' as 'ContractsViewController'.") }
+      }
       
       fileprivate init() {}
     }

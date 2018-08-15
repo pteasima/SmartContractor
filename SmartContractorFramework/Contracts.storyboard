@@ -11,7 +11,7 @@
         <!--Contracts View Controller-->
         <scene sceneID="fvY-tf-3xr">
             <objects>
-                <tableViewController id="Vaw-P6-NJe" customClass="ContractsViewController" customModule="SmartContractorFramework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ContractsViewController" id="Vaw-P6-NJe" customClass="ContractsViewController" customModule="SmartContractorFramework" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="At0-6v-Nd6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -31,10 +31,41 @@
                             <outlet property="delegate" destination="Vaw-P6-NJe" id="eci-ja-qjL"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="QRG-0C-jdT" kind="show" identifier="HomeToContracts" id="OJq-ll-1uq"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sbo-aH-TMX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="432" y="-234"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="jQP-AE-fb9">
+            <objects>
+                <tableViewController storyboardIdentifier="Druhej" id="QRG-0C-jdT" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Xv9-kO-7VZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="rqp-7N-zJ9">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rqp-7N-zJ9" id="4cF-C7-i2Z">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="QRG-0C-jdT" id="2Or-OH-cyg"/>
+                            <outlet property="delegate" destination="QRG-0C-jdT" id="fsa-h0-uxl"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ATL-JF-IF6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1445" y="-317"/>
         </scene>
     </scenes>
 </document>

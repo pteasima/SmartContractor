@@ -8,11 +8,16 @@
 import UIKit
 import Unidirectional
 
+enum Route {
+  case home
+}
+
 public class BaseViewController: UIViewController {
 
 }
 
 public class BaseTableViewController: UITableViewController, Observer {
+//  var route: Route
   public func update(state: State) {
     didUpdateState(state)
   }

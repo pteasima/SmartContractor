@@ -27,11 +27,28 @@ public struct FavoriteContractsScreen {
 //
 //}
 
-public final class ContractsViewController: BaseTableViewController {
+public class ContractsViewController: BaseTableViewController {
   public func configure(for screen: HomeScreen) {
     didUpdateState { [unowned self] newState in
       print("home")
       self.contracts = newState.contracts
+    }
+    tableView.numberOfRows { [unowned self] _ in
+      self.contracts.count
+    }
+    tableView.cellForRow { [unowned self] indexPath in
+      print("cellForRow")
+      let cell = self.tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.contractCell, for: indexPath)!
+      cell.textLabel?.text = self.contracts[indexPath.row]
+      if indexPath == self.tableView.indexPathForSelectedRow {
+        cell.isSelected = true
+      }
+      return cell
+    }
+
+    tableView.didSelectRowAt { indexPath in
+      print("didSElect(\(indexPath)")
+      dispatch(.didSelect(contractAt: indexPath.row))
     }
 
   }
@@ -48,23 +65,6 @@ public final class ContractsViewController: BaseTableViewController {
 
 
   public override func viewDidLoad() {
-//    tableView.numberOfRows { [unowned self] _ in
-//      self.contracts.count
-//    }
-//    tableView.cellForRow { [unowned self] indexPath in
-//      print("cellForRow")
-//      let cell = self.tableView.dequeueReusableCell(withIdentifier: "ContractCell")!
-//      cell.textLabel?.text = self.contracts[indexPath.row]
-//      if indexPath == self.tableView.indexPathForSelectedRow {
-//        cell.isSelected = true
-//      }
-//      return cell
-//    }
-//
-//    tableView.didSelectRowAt { indexPath in
-//      print("didSElect(\(indexPath)")
-//      //        dispatch(.didSelect(contractAt: indexPath.row))
-//    }
     super.viewDidLoad()
 
     Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { date in
@@ -81,21 +81,4 @@ public final class ContractsViewController: BaseTableViewController {
       }
     }
   }
-
-  public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return contracts.count
-  }
-  public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    print("cellForRow")
-    let cell = self.tableView.dequeueReusableCell(withIdentifier: "ContractCell")!
-    cell.textLabel?.text = self.contracts[indexPath.row]
-    if indexPath == self.tableView.indexPathForSelectedRow {
-      cell.isSelected = true
-    }
-    return cell
-  }
-  public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    dispatch(.didSelect(contractAt: indexPath.row))
-  }
 }
-
