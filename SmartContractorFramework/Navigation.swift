@@ -29,7 +29,7 @@ extension NSUserActivity {
 public protocol NavigationEffect: Effect {
   static func dismiss(to: NSUserActivity, andPresent: [NSUserActivity]) -> Self
 }
-private var currentViewController: UIViewController? = UIApplication.shared.keyWindow!.rootViewController
+private var currentViewController: UIViewController? = (UIApplication.shared.keyWindow!.rootViewController as! UINavigationController).topViewController
 extension RunEffect: NavigationEffect {
   public static func dismiss(to: NSUserActivity, andPresent: [NSUserActivity]) -> RunEffect<Action> {
     return .init { _ in

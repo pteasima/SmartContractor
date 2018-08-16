@@ -39,8 +39,10 @@ class AppDelegate: UIResponder, AppDelegateProtocol {
 
     window = UIWindow(frame: UIScreen.main.bounds).then {
       let vc = R.storyboard.contracts.instantiateInitialViewController()!.then {
-        ($0.topViewController as! ContractsViewController).configure(for: HomeScreen())
-        $0.userActivity = store.state.activities.last!
+        ($0.topViewController as! ContractsViewController).then {
+          $0.userActivity = store.state.activities.first!
+          $0.configure(for: HomeScreen())
+        }
       }
       $0.rootViewController = vc
 

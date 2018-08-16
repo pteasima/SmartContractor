@@ -67,9 +67,9 @@ public class ContractsViewController: BaseTableViewController {
   public override func viewDidLoad() {
     super.viewDidLoad()
 
-    Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { date in
+    Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { timer in
 //      dispatch(.add(contract: String(describing: date)))
-      dispatch(.showError(String(describing: date)))
+      dispatch(.showError(String(describing: timer.fireDate)))
     }
 
   }
