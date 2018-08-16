@@ -69,14 +69,21 @@ public struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.storyboard` struct is generated, and contains static references to 1 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
   public struct storyboard {
     /// Storyboard `Contracts`.
     public static let contracts = _R.storyboard.contracts()
+    /// Storyboard `Support`.
+    public static let support = _R.storyboard.support()
     
     /// `UIStoryboard(name: "Contracts", bundle: ...)`
     public static func contracts(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.contracts)
+    }
+    
+    /// `UIStoryboard(name: "Support", bundle: ...)`
+    public static func support(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.support)
     }
     
     fileprivate init() {}
@@ -111,11 +118,12 @@ public struct _R: Rswift.Validatable {
   
   public struct storyboard: Rswift.Validatable {
     public static func validate() throws {
+      try support.validate()
       try contracts.validate()
     }
     
     public struct contracts: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      public typealias InitialController = ContractsViewController
+      public typealias InitialController = UIKit.UINavigationController
       
       public let bundle = R.hostingBundle
       public let contractsViewController = StoryboardViewControllerResource<ContractsViewController>(identifier: "ContractsViewController")
@@ -133,6 +141,22 @@ public struct _R: Rswift.Validatable {
       public static func validate() throws {
         if _R.storyboard.contracts().druhej() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'druhej' could not be loaded from storyboard 'Contracts' as 'UIKit.UITableViewController'.") }
         if _R.storyboard.contracts().contractsViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'contractsViewController' could not be loaded from storyboard 'Contracts' as 'ContractsViewController'.") }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    public struct support: Rswift.StoryboardResourceType, Rswift.Validatable {
+      public let bundle = R.hostingBundle
+      public let name = "Support"
+      public let support = StoryboardViewControllerResource<SupportViewController>(identifier: "Support")
+      
+      public func support(_: Void = ()) -> SupportViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: support)
+      }
+      
+      public static func validate() throws {
+        if _R.storyboard.support().support() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'support' could not be loaded from storyboard 'Support' as 'SupportViewController'.") }
       }
       
       fileprivate init() {}

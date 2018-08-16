@@ -69,7 +69,7 @@ public class ContractsViewController: BaseTableViewController {
 
     Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { date in
 //      dispatch(.add(contract: String(describing: date)))
-      dispatch(.didSelect(contractAt: 0))
+      dispatch(.showError(String(describing: date)))
     }
 
   }
@@ -92,7 +92,8 @@ public class ContractsViewController: BaseTableViewController {
   }
 
   public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//    segue.destination.view.backgroundColor =
-    print(Faker(locale: "en-US").name.name())
+    print("segue")
+    segue.destination.view.backgroundColor = UIColor.random()
   }
 }
+

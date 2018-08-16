@@ -9,22 +9,42 @@ import UIKit
 import SmartContractorFramework
 import Then
 import Closures
+import Unidirectional
+
+//func url(_ string: String) -> URL {
+//  return URL(string: "https://smartcontractor.cz" + string)!
+//}
+//
+//let browsingHome = NSUserActivity(activityType: "cz.smartcontractor.browsingHome")
+//  .then {
+//    $0.webpageURL = url("/home")
+//}
+//let browsingDetail = NSUserActivity(activityType: "cz.smartcontractor.browsingDetails")
+//  .then {
+//    $0.webpageURL = url("/contracts/1")
+//}
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, AppDelegateProtocol {
 
   var window: UIWindow?
 
+  func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+
+    return true
+  }
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
 
     window = UIWindow(frame: UIScreen.main.bounds).then {
       let vc = R.storyboard.contracts.instantiateInitialViewController()!.then {
-        $0.configure(for: HomeScreen())
+        ($0.topViewController as! ContractsViewController).configure(for: HomeScreen())
+        $0.userActivity = store.state.activities.last!
       }
       $0.rootViewController = vc
-//      vc.tableView.addElements([], cell:)
+
+      //      vc.tableView.addElements([], cell:)
       $0.makeKeyAndVisible()
     }
     return true
