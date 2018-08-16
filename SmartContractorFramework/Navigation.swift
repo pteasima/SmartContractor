@@ -59,8 +59,8 @@ extension UIViewController {
   @objc fileprivate  func present(activities: [NSUserActivity], from: NSUserActivity) -> UIViewController {
     assert(from == userActivity)
     //dismiss to self
-    navigationController?.dismiss(animated: false, completion: nil)
-    navigationController?.popViewController(animated: false)
+    navigationController?.dismiss(animated: true, completion: nil)
+    navigationController?.popViewController(animated: true)
 
     guard var presented = activities.last?.createViewController() else {
       return self //we we've just dismissing
@@ -93,7 +93,7 @@ extension UIViewController {
 extension UINavigationController {
   override func present(activities: [NSUserActivity], from: NSUserActivity) -> UIViewController {
     if let child = childThatCanPerform(#selector(present(activities:from:)), withSender: from) {
-      popToViewController(child, animated: false)
+      popToViewController(child, animated: true)
       return child.present(activities: activities, from: from)
     }
     return super.present(activities: activities, from: from)
