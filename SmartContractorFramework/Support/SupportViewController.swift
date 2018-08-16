@@ -16,5 +16,8 @@ public final class SupportViewController: BaseViewController {
   public override func viewDidLoad() {
     super.viewDidLoad()
     label.text = context
+    if context == nil {
+      
+    }
   }
 }

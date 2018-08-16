@@ -79,7 +79,7 @@ public func reduce<E: NavigationEffect>(state: inout State, action: Action) -> E
       $0.webpageURL = URL(string: "https://smartcontractor.cz/error")
       $0.userInfo?["errorID"] = text
       }]
-    let navigate = E.dismiss(to: state.activities.reversed().first!, andPresent: newActivities)
+    let navigate = E.dismiss(to: state.activities.first!, andPresent: newActivities)
     state.activities.append(contentsOf: newActivities)
     return navigate
   }

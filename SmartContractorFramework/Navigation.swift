@@ -41,22 +41,26 @@ extension RunEffect: NavigationEffect {
         }
       }
 
-      guard let presenter = currentViewController?.target(forAction: #selector(UIViewController.present(activities:)), withSender: to) as? UIViewController else {
+      guard let presenter = currentViewController?.target(forAction: #selector(UIViewController.present(activities:from:)), withSender: to) as? UIViewController else {
         makeRootInNewWindow()
         return
       }
-      currentViewController = presenter.present(activities: andPresent)
+      currentViewController = presenter.present(activities: andPresent, from: to)
     }
 
 
   }
 }
 extension UIViewController {
-  @objc fileprivate  func present(activities: [NSUserActivity]) -> UIViewController {
+  open override func target(forAction action: Selector, withSender sender: Any?) -> Any? {
+   return super.target(forAction: action, withSender: sender)
+  }
+
+  @objc fileprivate  func present(activities: [NSUserActivity], from: NSUserActivity) -> UIViewController {
+    assert(from == userActivity)
     //dismiss to self
     navigationController?.dismiss(animated: false, completion: nil)
     navigationController?.popViewController(animated: false)
-
 
     guard var presented = activities.last?.createViewController() else {
       return self //we we've just dismissing
@@ -74,7 +78,7 @@ extension UIViewController {
 
   open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
     switch action {
-    case #selector(present(activities:)):
+    case #selector(present(activities:from:)):
       guard let to = sender as? NSUserActivity else {
         assertionFailure(); return false
       }
@@ -83,5 +87,23 @@ extension UIViewController {
       return super.canPerformAction(action, withSender: sender)
     }
 
+  }
+}
+
+extension UINavigationController {
+  override func present(activities: [NSUserActivity], from: NSUserActivity) -> UIViewController {
+    if let child = childThatCanPerform(#selector(present(activities:from:)), withSender: from) {
+      popToViewController(child, animated: false)
+      return child.present(activities: activities, from: from)
+    }
+    return super.present(activities: activities, from: from)
+  }
+  open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+    return childThatCanPerform(action, withSender: sender) != nil || super.canPerformAction(action, withSender: sender)
+  }
+
+
+  func childThatCanPerform(_ action: Selector, withSender sender: Any?) -> UIViewController? {
+    return viewControllers.first (where: { $0.canPerformAction(action, withSender: sender) })
   }
 }
