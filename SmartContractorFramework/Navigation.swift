@@ -69,7 +69,7 @@ extension UIViewController {
     var intermediateActivities = activities.dropLast()
     while let presenter = intermediateActivities.last?.createViewController() {
       intermediateActivities.removeLast()
-      presenter.present(presented, animated: false)
+      presenter.present(presented, animated: true)
       presented = presenter
     }
     self.present(presented, animated: true, completion: nil)
