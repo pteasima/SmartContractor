@@ -1,40 +1,6 @@
 import Unidirectional
 import Tagged
 
-//enum Route {
-//  case error
-//  case home
-//  case favorites(String)
-//  case detail(ContractID)
-//
-//  var url: URL {
-//    switch self {
-//    case .error:
-//      return URL(string: "/error")!
-//    case .home:
-//      return URL(string: "/home")!
-//    case let .favorites(userID):
-//      return URL(string: "/users/\(userID)/favorites")!
-//    case let .detail(contractID):
-//      return URL(string: "/contracts/\(contractID)")!
-//    }
-//  }
-//}
-//
-//
-//var activities: [NSUserActivity] = []
-//func push(_ activity: NSUserActivity) {
-//  activities.append(activity)
-//}
-//
-//func pop(to: NSUserActivity? = nil) {
-//  UIApplication.shared.keyWindow?.rootViewController
-//}
-//
-//
-//
-
-
 public typealias ContractID = String
 
 public enum Action {
@@ -44,13 +10,14 @@ public enum Action {
   case showError(String)
 }
 
-public struct Contract: Equatable {
-  public let id: Tagged<Contract, String>
-  public var name: String
-
-}
 public struct State {
-  public var contracts: [Contract] = [Contract(id: .init(rawValue: UUID().uuidString), name: "foo")]
+  public var contracts: [Contract] = [
+    Contract(id: .init(rawValue: UUID().uuidString), name: "MyContract", functions: [
+      SolidityFunction(name: "helloWorld", params: [
+        SolidityFunction.Param(name: "param1", type: .string)
+        ])
+    ])
+  ]
   public var favorites: [Contract] = []
 
   public var errors: [ErrorID] = ["first"]
