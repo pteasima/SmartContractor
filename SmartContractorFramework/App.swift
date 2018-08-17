@@ -37,6 +37,7 @@ import Unidirectional
 public typealias ContractID = String
 
 public enum Action {
+  case noAction
   case routeToFavorites
   case route(to: URL)
   case run(activity: NSUserActivity)
@@ -59,8 +60,9 @@ public struct State {
     }]
 }
 
-public func reduce<E: NavigationEffect>(state: inout State, action: Action) -> E {
+public func reduce<E: NavigationEffect>(state: inout State, action: Action) -> E where E.Action == Action {
   switch action {
+  case .noAction: break
   case .routeToFavorites:
     break
   case let .route(to: url):
@@ -75,17 +77,12 @@ public func reduce<E: NavigationEffect>(state: inout State, action: Action) -> E
   case let .add(contract: contract):
     state.contracts.append(contract)
   case let .showError(text):
-    let newActivities : [NSUserActivity] = [NSUserActivity(activityType: "cz.smartcontractor.error").then {
+    let errorActivity = NSUserActivity(activityType: "cz.smartcontractor.error").then {
       $0.webpageURL = URL(string: "https://smartcontractor.cz/error")
       $0.userInfo?["errorID"] = text
-      }]
-    //TODO: multiple vcs at once dont work right now
-//    , Bool.random() ? nil : NSUserActivity(activityType: "cz.smartcontractor.error").then {
-//        $0.webpageURL = URL(string: "https://smartcontractor.cz/error")
-//        $0.userInfo?["errorID"] = String(describing: Date())
-//      }].compactMap { $0 }
-    let navigate = E.dismiss(to: Bool.random() ? state.activities.first! : state.activities.last!, andPresent: newActivities)
-    state.activities.append(contentsOf: newActivities)
+      }
+    let navigate = E.dismiss(to: state.activities.first!, andPresent: errorActivity, animated: true) { .noAction }
+    state.activities.append(errorActivity)
     return navigate
   }
   return .empty

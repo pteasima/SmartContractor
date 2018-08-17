@@ -27,13 +27,12 @@ extension NSUserActivity {
 }
 
 public protocol NavigationEffect: Effect {
-  static func dismiss(to: NSUserActivity, andPresent: [NSUserActivity]) -> Self
+  static func dismiss(to: NSUserActivity, andPresent: NSUserActivity?, animated: Bool, completion: @escaping () -> Action) -> Self
 }
 private var currentViewController: UIViewController? = (UIApplication.shared.keyWindow!.rootViewController as! UINavigationController).topViewController
 extension RunEffect: NavigationEffect {
-  public static func dismiss(to: NSUserActivity, andPresent: [NSUserActivity]) -> RunEffect<Action> {
-    return .init { _ in
-
+  public static func dismiss(to: NSUserActivity, andPresent: NSUserActivity?, animated: Bool, completion: @escaping () -> Action) -> RunEffect<Action> {
+    return .init { callback in
       func makeRootInNewWindow() {
         (UIApplication.shared.delegate as? AppDelegateProtocol)?.window = UIWindow(frame: UIScreen.main.bounds).then {
           $0.rootViewController = to.createViewController()
@@ -41,11 +40,11 @@ extension RunEffect: NavigationEffect {
         }
       }
 
-      guard let presenter = currentViewController?.target(forAction: #selector(UIViewController.present(activities:from:)), withSender: to) as? UIViewController else {
+      guard let presenter = currentViewController?.target(forAction: #selector(UIViewController.dismiss(to:andPresent:animated:completion:)), withSender: to) as? UIViewController else {
         makeRootInNewWindow()
         return
       }
-      currentViewController = presenter.present(activities: andPresent, from: to)
+      currentViewController = presenter.dismiss(to: to, andPresent: andPresent, animated: animated) { callback(completion()) }
     }
 
 
@@ -56,29 +55,24 @@ extension UIViewController {
    return super.target(forAction: action, withSender: sender)
   }
 
-  @objc fileprivate  func present(activities: [NSUserActivity], from: NSUserActivity) -> UIViewController {
-    assert(from == userActivity)
+  @objc fileprivate func dismiss(to: NSUserActivity, andPresent: NSUserActivity?, animated: Bool, completion: @escaping () -> Void) -> UIViewController? {
+    assert(to == userActivity)
     //dismiss to self
-    navigationController?.dismiss(animated: true, completion: nil)
-    navigationController?.popViewController(animated: true)
+    navigationController?.dismiss(animated: animated, completion: nil)
+    navigationController?.popViewController(animated: animated)
 
-    guard var presented = activities.last?.createViewController() else {
-      return self //we we've just dismissing
+    if let presented = andPresent?.createViewController()  {
+      present(presented, animated: animated, completion: completion)
+      return presented
+    } else {
+      completion()
+      return self
     }
-    let topmost = presented
-    var intermediateActivities = activities.dropLast()
-    while let presenter = intermediateActivities.last?.createViewController() {
-      intermediateActivities.removeLast()
-      presenter.present(presented, animated: true)
-      presented = presenter
-    }
-    self.present(presented, animated: true, completion: nil)
-    return topmost
   }
 
   open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
     switch action {
-    case #selector(present(activities:from:)):
+    case #selector(dismiss(to:andPresent:animated:completion:)):
       guard let to = sender as? NSUserActivity else {
         assertionFailure(); return false
       }
@@ -91,12 +85,12 @@ extension UIViewController {
 }
 
 extension UINavigationController {
-  override func present(activities: [NSUserActivity], from: NSUserActivity) -> UIViewController {
-    if let child = childThatCanPerform(#selector(present(activities:from:)), withSender: from) {
-      popToViewController(child, animated: true)
-      return child.present(activities: activities, from: from)
+  override func dismiss(to: NSUserActivity, andPresent: NSUserActivity?, animated: Bool, completion: @escaping () -> Void) -> UIViewController? {
+    if let child = childThatCanPerform(#selector(dismiss(to:andPresent:animated:completion:)), withSender: to) {
+      popToViewController(child, animated: animated)
+      return child.dismiss(to: to, andPresent: andPresent, animated: animated, completion: completion)
     }
-    return super.present(activities: activities, from: from)
+    return super.dismiss(to: to, andPresent: andPresent, animated: animated, completion: completion)
   }
   open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
     return childThatCanPerform(action, withSender: sender) != nil || super.canPerformAction(action, withSender: sender)
