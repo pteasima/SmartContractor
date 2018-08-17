@@ -20,3 +20,15 @@ public enum SolidityType: String, Equatable {
   case int
   case string
 }
+
+//Render
+extension SolidityFunction {
+  func pretty() -> String {
+    return "func \(name)(\(params.map { $0.pretty() }.joined(separator: ",")))"
+  }
+}
+extension SolidityFunction.Param {
+  func pretty() -> String {
+    return "\(name): \(type)"
+  }
+}

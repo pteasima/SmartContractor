@@ -22,18 +22,19 @@ public final class ContractViewController: BaseTableViewController {
         }
       }
       $0.cellForRow { [unowned tableView = $0, unowned self] indexPath in
-        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.contractInfoCell, for: indexPath)!
         switch Section(rawValue: indexPath.section)! {
         case .contractInfo:
+          let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.contractInfoCell, for: indexPath)!
           cell.textLabel?.text = "Address:"
           cell.detailTextLabel?.text = self.contractID?.rawValue
+          return cell
         case .functions:
+          let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.contractFunctionCell, for: indexPath)!
           let function = self.contract!.functions[indexPath.row]
-          cell.textLabel?.text = function.name
-          cell.detailTextLabel?.text = function.params.map { $0.prettyPrint() }.joined(separator: ", ")
+          cell.textLabel?.text = function.pretty()
+          return cell
         }
 
-        return cell
       }
     }
     super.viewDidLoad()
@@ -46,11 +47,5 @@ public final class ContractViewController: BaseTableViewController {
     }
     self.contract = contract
     title = contract.name
-  }
-}
-
-extension SolidityFunction.Param {
-  func prettyPrint() -> String {
-    return "\(name): \(type)"
   }
 }
