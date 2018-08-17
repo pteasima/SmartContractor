@@ -1,0 +1,15 @@
+# references:
+# * https://www.objc.io/issues/6-build-tools/travis-ci/
+# * https://github.com/supermarin/xcpretty#usage
+
+osx_image: xcode10
+language: Swift
+cache: cocoapods
+podfile: Podfile
+before_install:
+- gem install cocoapods # Since Travis is not always on latest version
+- brew install mint
+- mint install johnsundell/Marathon
+- marathon run scripts/bootstrap
+script:
+- set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace SmartContractor.xcworkspace -scheme SmartContractorIos ONLY_ACTIVE_ARCH=NO -allowProvisioningUpdates -allowProvisioningDeviceRegistration -sdk iphonesimulator12.0 | xcpretty
