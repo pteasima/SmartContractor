@@ -1,4 +1,5 @@
 import Unidirectional
+import Tagged
 
 //enum Route {
 //  case error
@@ -38,20 +39,19 @@ public typealias ContractID = String
 
 public enum Action {
   case noAction
-  case routeToFavorites
-  case route(to: URL)
-  case run(activity: NSUserActivity)
   case didSelect(contractAt: Int)
-  case add(contract: Contract)
 
   case showError(String)
 }
 
-public typealias Contract = String
+public struct Contract: Equatable {
+  public let id: Tagged<Contract, String>
+  public var name: String
+
+}
 public struct State {
-  public var contracts: [Contract] = ["1", "2", "3"]
+  public var contracts: [Contract] = [Contract(id: .init(rawValue: UUID().uuidString), name: "foo")]
   public var favorites: [Contract] = []
-  public var selectedContract: Contract?
 
   public var errors: [ErrorID] = ["first"]
   //todo nonempty array
@@ -63,19 +63,10 @@ public struct State {
 public func reduce<E: NavigationEffect>(state: inout State, action: Action) -> E where E.Action == Action {
   switch action {
   case .noAction: break
-  case .routeToFavorites:
-    break
-  case let .route(to: url):
-    break
-  case let .run(activity: activity):
-    print(activity)
   case let .didSelect(contractAt: index):
-    state.selectedContract = state.contracts[index]
-    let activity = NSUserActivity(activityType: "cz.smartcontractor.browseContractDetail")
-    activity.webpageURL = URL(string: "/contract/\(state.contracts[index])")
-    
-  case let .add(contract: contract):
-    state.contracts.append(contract)
+    break
+//    let activity = NSUserActivity(activityType: "cz.smartcontractor.browseContractDetail")
+//    activity.webpageURL = URL(string: "/contract/\(state.contracts[index])")
   case let .showError(text):
     let errorActivity = NSUserActivity(activityType: "cz.smartcontractor.error").then {
       $0.webpageURL = URL(string: "https://smartcontractor.cz/error")

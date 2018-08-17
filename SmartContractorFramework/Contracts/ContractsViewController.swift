@@ -33,7 +33,6 @@ public class ContractsViewController: BaseTableViewController {
   public func configure(for screen: HomeScreen) {
     didUpdateState { [unowned self] newState in
       print("home")
-      self.selectedContract = newState.selectedContract
       self.contracts = newState.contracts
     }
     tableView.numberOfRows { [unowned self] _ in
@@ -42,7 +41,7 @@ public class ContractsViewController: BaseTableViewController {
     tableView.cellForRow { [unowned self] indexPath in
       print("cellForRow")
       let cell = self.tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.contractCell, for: indexPath)!
-      cell.textLabel?.text = self.contracts[indexPath.row]
+      cell.textLabel?.text = self.contracts[indexPath.row].name
       return cell
     }
 
@@ -81,19 +80,6 @@ public class ContractsViewController: BaseTableViewController {
         tableView.reloadData()
       }
     }
-  }
-  var selectedContract: Contract? {
-    didSet {
-      if oldValue != selectedContract {
-        print("go")
-        performSegue(withIdentifier: R.segue.contractsViewController.homeToContracts, sender: self)
-      }
-    }
-  }
-
-  public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    print("segue")
-    segue.destination.view.backgroundColor = UIColor.random()
   }
 }
 

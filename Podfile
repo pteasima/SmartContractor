@@ -10,6 +10,7 @@ def framework_pods
   pod 'Unidirectional', :git => 'git@github.com:pteasima/Unidirectional.git'
   pod 'Then'
   pod 'Closures'
+  pod 'Tagged'
 end
 
 target 'SmartContractorIos' do

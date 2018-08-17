@@ -41,31 +41,18 @@ public struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 2 reuse identifiers.
   public struct reuseIdentifier {
     /// Reuse identifier `ContractCell`.
     public static let contractCell: Rswift.ReuseIdentifier<UIKit.UITableViewCell> = Rswift.ReuseIdentifier(identifier: "ContractCell")
+    /// Reuse identifier `ContractInfoCell`.
+    public static let contractInfoCell: Rswift.ReuseIdentifier<UIKit.UITableViewCell> = Rswift.ReuseIdentifier(identifier: "ContractInfoCell")
     
     fileprivate init() {}
   }
   
-  /// This `R.segue` struct is generated, and contains static references to 1 view controllers.
+  /// This `R.segue` struct is generated, and contains static references to 0 view controllers.
   public struct segue {
-    /// This struct is generated for `ContractsViewController`, and contains static references to 1 segues.
-    public struct contractsViewController {
-      /// Segue identifier `HomeToContracts`.
-      public static let homeToContracts: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, ContractsViewController, UIKit.UITableViewController> = Rswift.StoryboardSegueIdentifier(identifier: "HomeToContracts")
-      
-      /// Optionally returns a typed version of segue `HomeToContracts`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      public static func homeToContracts(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, ContractsViewController, UIKit.UITableViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.contractsViewController.homeToContracts, segue: segue)
-      }
-      
-      fileprivate init() {}
-    }
-    
     fileprivate init() {}
   }
   
@@ -118,28 +105,28 @@ public struct _R: Rswift.Validatable {
   
   public struct storyboard: Rswift.Validatable {
     public static func validate() throws {
-      try support.validate()
       try contracts.validate()
+      try support.validate()
     }
     
     public struct contracts: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       public typealias InitialController = UIKit.UINavigationController
       
       public let bundle = R.hostingBundle
+      public let contractViewController = StoryboardViewControllerResource<ContractViewController>(identifier: "ContractViewController")
       public let contractsViewController = StoryboardViewControllerResource<ContractsViewController>(identifier: "ContractsViewController")
-      public let druhej = StoryboardViewControllerResource<UIKit.UITableViewController>(identifier: "Druhej")
       public let name = "Contracts"
+      
+      public func contractViewController(_: Void = ()) -> ContractViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: contractViewController)
+      }
       
       public func contractsViewController(_: Void = ()) -> ContractsViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: contractsViewController)
       }
       
-      public func druhej(_: Void = ()) -> UIKit.UITableViewController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: druhej)
-      }
-      
       public static func validate() throws {
-        if _R.storyboard.contracts().druhej() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'druhej' could not be loaded from storyboard 'Contracts' as 'UIKit.UITableViewController'.") }
+        if _R.storyboard.contracts().contractViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'contractViewController' could not be loaded from storyboard 'Contracts' as 'ContractViewController'.") }
         if _R.storyboard.contracts().contractsViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'contractsViewController' could not be loaded from storyboard 'Contracts' as 'ContractsViewController'.") }
       }
       
