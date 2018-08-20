@@ -10,10 +10,8 @@ before_install:
 - gem install cocoapods # Since Travis is not always on latest version
 - brew install mint
 - mint install yonaskolb/XcodeGen
-#- mint install johnsundell/Marathon
-#- marathon run scripts/bootstrap
-#atm marathon needs non-beta command line tools
-- xcodegen
-- pod install
+- mint install johnsundell/Marathon
+- marathon run scripts/bootstrap
+
 script:
 - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace SmartContractor.xcworkspace -scheme SmartContractorIos ONLY_ACTIVE_ARCH=NO -allowProvisioningUpdates -allowProvisioningDeviceRegistration -sdk iphonesimulator12.0 | xcpretty
