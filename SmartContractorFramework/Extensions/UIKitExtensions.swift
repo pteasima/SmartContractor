@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Closures
 
 public extension UIColor {
   public static func random() -> UIColor {
@@ -14,5 +15,14 @@ public extension UIColor {
     let brightness : CGFloat = CGFloat(arc4random() % 128) / 256 + 0.5 // from 0.5 to 1.0 to stay away from black
 
     return UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1)
+  }
+}
+
+public extension UITableView {
+  func set<Item>(items: [Item], cellForRow cell: @escaping (IndexPath, Item) -> UITableViewCell) {
+    numberOfSectionsIn { 1 }
+    numberOfRows { _ in items.count }
+    cellForRow { cell($0, items[$0.row]) }
+    reloadData()
   }
 }

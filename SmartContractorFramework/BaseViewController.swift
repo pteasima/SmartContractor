@@ -12,8 +12,25 @@ import ObjectiveC
 
 
 
-public class BaseViewController: UIViewController {
+public class BaseViewController: UIViewController, Observer {
+  public func update(state: State) {
+    didUpdateState(state)
+  }
 
+  public typealias State = SmartContractorFramework.State
+
+  func didUpdateState(_ handler: @escaping (State) -> ()) {
+    didUpdateState = handler
+  }
+  private var didUpdateState: (State) -> () = { _ in
+    print("Unhandled state update in \(self)" )
+  }
+
+  public override func viewDidLoad() {
+    super.viewDidLoad()
+    update(state: state)
+    store.addObserver(self)
+  }
 }
 
 public class BaseTableViewController: UITableViewController, Observer {
