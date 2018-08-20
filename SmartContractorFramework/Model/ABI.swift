@@ -28,7 +28,18 @@ extension SolidityFunction {
   }
 }
 extension SolidityFunction.Param {
-  func pretty() -> String {
+  public func pretty() -> String {
     return "\(name): \(type)"
   }
+
+  public func render(into: UITextField) {
+    into.placeholder = name
+    into.keyboardType = just {
+      switch type {
+      case .string: return .asciiCapable
+      case .int: return .numberPad
+      }
+    }
+  }
 }
+

@@ -1,7 +1,9 @@
 import UIKit
 import Tagged
+import Then
+import Closures
 
-public final class ContractViewController: BaseTableViewController {
+public final class ContractDetailViewController: BaseTableViewController {
   public var contractID: Tagged<Contract, String>? {
     return userActivity?.webpageURL?.absoluteString.split(separator: "/").last.map { Tagged(rawValue: String($0)) }
   }

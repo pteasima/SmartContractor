@@ -6,7 +6,8 @@ public typealias ContractID = String
 public enum Action {
   case noAction
   case didSelect(contractAt: Int)
-
+//  case paramValueDidChange(toString: String)
+//  case paramValueDidChange(toInt: Int)
   case showError(String)
 }
 
@@ -14,11 +15,22 @@ public struct State {
   public var contracts: [Contract] = [
     Contract(id: .init(rawValue: UUID().uuidString), name: "MyContract", functions: [
       SolidityFunction(name: "helloWorld", params: [
-        SolidityFunction.Param(name: "param1", type: .string)
+        SolidityFunction.Param(name: "foo", type: .string),
+        SolidityFunction.Param(name: "bar", type: .int),
         ])
     ])
   ]
   public var favorites: [Contract] = []
+  public var contractDetailActivity: NSUserActivity? {
+    didSet {
+      let activity = contractDetailActivity
+      contractDetail = contracts.first(where: { $0.id == activity?.webpageURL?.absoluteString.split(separator:"/").last.map { Tagged(rawValue: String($0))} })
+    }
+  }
+  public var contractDetail: Contract?
+  public var functionDetail: (NSUserActivity, SolidityFunction)?
+  public var editedParamIndex: Int?
+
 
   public var errors: [ErrorID] = ["first"]
   //todo nonempty array

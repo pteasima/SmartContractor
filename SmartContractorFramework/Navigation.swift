@@ -15,15 +15,20 @@ public protocol AppDelegateProtocol: UIApplicationDelegate {
 
 extension NSUserActivity {
   func createViewController() -> UIViewController {
-    let vc: UIViewController
-    switch webpageURL {
-    case let url? where url.absoluteString.contains("/support"):
-      vc = R.storyboard.support.support()!
-    default: vc = R.storyboard.support.support()!
+    let vc: UIViewController = just {
+      switch webpageURL {
+      case let url? where url.absoluteString.contains("/support"):
+        return R.storyboard.support.support()!
+      case let url? where url.absoluteString.contains("/contracts"):
+//        p
+        return R.storyboard.contracts.contractsViewController()!
+      default: return R.storyboard.support.support()!
+      }
+      }
+      vc.userActivity = self
+      return vc
     }
-    vc.userActivity = self
-    return vc
-  }
+
 }
 
 public protocol NavigationEffect: Effect {

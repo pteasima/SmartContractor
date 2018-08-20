@@ -14,22 +14,8 @@ public struct HomeScreen { public init() { } }
 public struct FavoriteContractsScreen {
   var userID: String
 }
-//
-//
-//public enum Either<A, B> {
-//  case left(A)
-//  case right(B)
-//}
-//
-//public protocol ViewController {
-//  associatedtype Screen
-//  func configure(for screen: Screen)
-//}
-//extension ViewController {
-//
-//}
 
-public class ContractsViewController: BaseTableViewController {
+public class ContractsListViewController: BaseTableViewController {
   public func configure(for screen: HomeScreen) {
     didUpdateState { [unowned self] newState in
       print("home")
