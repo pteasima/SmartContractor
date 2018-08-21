@@ -16,6 +16,12 @@ targets:
   SmartContractorFramework:
     type: framework
     platform: iOS
+    settings:
+      FRAMEWORK_SEARCH_PATHS: $inherited Frameworks
+    dependencies:
+      - framework: Frameworks/Prelude.framework
+      - framework: Frameworks/Optics.framework
+      - framework: Frameworks/Either.framework
     prebuildScripts:
       - path: scripts/R.sh
         name: R

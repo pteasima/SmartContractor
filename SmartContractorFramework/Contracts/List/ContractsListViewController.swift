@@ -8,7 +8,6 @@
 import UIKit
 import Unidirectional
 import Closures
-import Fakery
 
 public struct HomeScreen { public init() { } }
 public struct FavoriteContractsScreen {

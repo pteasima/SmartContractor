@@ -1,6 +1,5 @@
 PODS:
   - Closures (0.4)
-  - Fakery (3.3.0)
   - R.swift (4.0.0):
     - R.swift.Library (~> 4.0.0)
   - R.swift.Library (4.0.0)
@@ -10,7 +9,6 @@ PODS:
 
 DEPENDENCIES:
   - Closures
-  - Fakery
   - R.swift
   - Tagged
   - Then
@@ -19,7 +17,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Closures
-    - Fakery
     - R.swift
     - R.swift.Library
     - Tagged
@@ -31,18 +28,17 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Unidirectional:
-    :commit: 52e8a297f308d647764eab7aca5b80dae5682085
+    :commit: d26b4b6ff8d269ff98718e24270bb284383d036a
     :git: "git@github.com:pteasima/Unidirectional.git"
 
 SPEC CHECKSUMS:
   Closures: fe9ecbda045d8d42cc13520209b4ea5208e38248
-  Fakery: 3aae11a87721c807c18c6456500d088c1230d3e5
   R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
   R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
   Tagged: 20ad99855b2d2bdfff0b9d6937ff4f2a123489fa
   Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
   Unidirectional: 104648df9d0d3ac317c0679dd4ec97b4432366b7
 
-PODFILE CHECKSUM: 47357432fc3850f6c5eb291cad2956fb6ef65502
+PODFILE CHECKSUM: d3cda1f7baf498d5f4dda4a4ee9f00df17782eff
 
 COCOAPODS: 1.5.3

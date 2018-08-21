@@ -6,7 +6,6 @@ platform :ios, '12.0'
 pod 'R.swift'
 
 def framework_pods
-  pod 'Fakery'
   pod 'Unidirectional', :git => 'git@github.com:pteasima/Unidirectional.git'
   pod 'Then'
   pod 'Closures'
